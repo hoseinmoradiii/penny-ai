@@ -1,10 +1,12 @@
 "use client";
 
+import MobileMenu from "@/components/MobileMenu";
 import { useEffect, useRef, useState } from "react";
 const pageStyles =
   "@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0e1321;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}\nbody {\n      min-height: max(884px, 100dvh);\n    }\nbody {\n      min-height: max(884px, 100dvh);\n    }";
 
 export default function CompanyMobile() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const TOTAL_SEC = 60;
   const [audio, setAudio] = useState<{ playing: boolean; sec: number; ended: boolean }>({
     playing: false,
@@ -29,7 +31,9 @@ export default function CompanyMobile() {
         <div className="h-16 px-margin-mobile flex items-center justify-between">
           <div className="flex items-center gap-space-sm">
             <button
+              aria-expanded={menuOpen}
               aria-label="Open Menu"
+              onClick={() => setMenuOpen(true)}
               className="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface focus:outline-none"
             >
               <span className="material-symbols-outlined text-[24px]">menu</span>
@@ -56,6 +60,7 @@ export default function CompanyMobile() {
           </div>
         </div>
       </header>
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
       <main className="flex flex-col relative w-full px-margin-mobile pt-16 pb-24 bg-surface min-h-screen">
         <div className="flex flex-col w-full gap-space-lg">
           {/* Mission Hero Section */}
