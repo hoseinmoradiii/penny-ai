@@ -3,13 +3,16 @@
 import { useState } from "react";
 
 import Link from "next/link";
+import MobileMenu from "@/components/MobileMenu";
 
 const pageStyles =
   "@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0e1321;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}\nbody {\n      min-height: max(884px, 100dvh);\n    }\nbody {\n      min-height: max(884px, 100dvh);\n    }";
 
 export default function ProductMobile() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [canceled, setCanceled] = useState<Record<string, string>>({});
-  const cancelSub = (elementId: string, amount: string) => setCanceled((s) => ({ ...s, [elementId]: amount }));
+  const cancelSub = (elementId: string, amount: string) =>
+    setCanceled((s) => ({ ...s, [elementId]: amount }));
   const lastAmount = Object.values(canceled).at(-1);
   return (
     <>
@@ -17,13 +20,27 @@ export default function ProductMobile() {
       <header className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.2)] pt-safe">
         <div className="h-16 px-margin-mobile flex items-center justify-between">
           <div className="flex items-center gap-space-sm">
+            <button
+              aria-expanded={menuOpen}
+              aria-label="Open Menu"
+              onClick={() => setMenuOpen(true)}
+              className="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface focus:outline-none"
+            >
+              <span className="material-symbols-outlined text-[24px]">
+                menu
+              </span>
+            </button>
             <div className="flex items-center gap-space-xs">
               <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.25)]">
-                <span className="material-symbols-outlined text-primary text-[20px]">auto_awesome</span>
+                <span className="material-symbols-outlined text-primary text-[20px]">
+                  auto_awesome
+                </span>
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1">
-                  <span className="font-title-md text-title-md tracking-tight text-on-surface">Penny</span>
+                  <span className="font-title-md text-title-md tracking-tight text-on-surface">
+                    Penny
+                  </span>
                   <span className="font-label-sm text-label-sm text-secondary px-1.5 py-0.5 rounded-full bg-secondary-container/40">
                     AI
                   </span>
@@ -32,19 +49,27 @@ export default function ProductMobile() {
             </div>
           </div>
           <div className="flex items-center gap-space-sm">
-            <span className="font-title-md text-title-md text-on-surface hidden xs:block">Product (Mobile)</span>
+            <span className="font-title-md text-title-md text-on-surface hidden xs:block">
+              Product (Mobile)
+            </span>
             <button
               aria-label="Security Shield"
               className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary hover:text-primary-fixed focus:outline-none"
             >
-              <span className="material-symbols-outlined text-[20px]">verified_user</span>
+              <span className="material-symbols-outlined text-[20px]">
+                verified_user
+              </span>
             </button>
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
+              <span className="material-symbols-outlined text-on-primary text-[18px]">
+                person
+              </span>
             </div>
           </div>
         </div>
       </header>
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+
       <main className="flex flex-col relative w-full px-margin-mobile pt-16 pb-24 bg-surface min-h-screen">
         <div className="flex flex-col w-full pb-8 space-y-space-xl">
           {/* Mobile Hero Header & Pitch */}
@@ -62,23 +87,28 @@ export default function ProductMobile() {
               </span>
             </div>
             <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight max-w-sm mb-3">
-              Your Entire Financial Life. <span className="text-primary">Understood</span> {"& Optimized."}
+              Your Entire Financial Life.{" "}
+              <span className="text-primary">Understood</span> {"& Optimized."}
             </h1>
             <p className="font-body-md text-body-md text-on-surface-variant max-w-xs mb-6">
-              Say goodbye to manual budgeting. Penny works 24/7 behind the scenes to classify, safeguard, and grow your
-              wealth.
+              Say goodbye to manual budgeting. Penny works 24/7 behind the
+              scenes to classify, safeguard, and grow your wealth.
             </p>
             {/* CTAs Stacked for Mobile Reachability */}
             <div className="w-full flex flex-col gap-space-sm sm:flex-row justify-center max-w-xs">
               <button className="w-full py-3.5 px-6 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-[0_12px_24px_-8px_rgba(78,222,163,0.35)] active:scale-[0.98] transition-transform">
                 <span>Start 14-Day Free Trial</span>{" "}
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <span className="material-symbols-outlined text-[18px]">
+                  arrow_forward
+                </span>
               </button>{" "}
               <button
                 className="w-full py-3.5 px-6 rounded-xl bg-surface-container-high text-on-surface font-title-md text-title-md flex items-center justify-center gap-2 active:bg-surface-bright transition-colors"
                 id="demoTrigger"
                 onClick={() =>
-                  alert("Interactive 2-Min Interactive Tour loaded! Penny is actively auditing demo dataset.")
+                  alert(
+                    "Interactive 2-Min Interactive Tour loaded! Penny is actively auditing demo dataset.",
+                  )
                 }
               >
                 <span
@@ -93,16 +123,28 @@ export default function ProductMobile() {
             {/* Quick Stats ticker */}
             <div className="grid grid-cols-3 gap-2 w-full mt-7 pt-4 bg-surface-container-lowest/60 rounded-xl p-3">
               <div className="flex flex-col items-center">
-                <span className="font-title-lg text-title-lg text-primary">$418</span>{" "}
-                <span className="font-label-sm text-label-sm text-on-surface-variant">Avg. Monthly Saved</span>
+                <span className="font-title-lg text-title-lg text-primary">
+                  $418
+                </span>{" "}
+                <span className="font-label-sm text-label-sm text-on-surface-variant">
+                  Avg. Monthly Saved
+                </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-title-lg text-title-lg text-secondary">99.4%</span>{" "}
-                <span className="font-label-sm text-label-sm text-on-surface-variant">Auto Accuracy</span>
+                <span className="font-title-lg text-title-lg text-secondary">
+                  99.4%
+                </span>{" "}
+                <span className="font-label-sm text-label-sm text-on-surface-variant">
+                  Auto Accuracy
+                </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-title-lg text-title-lg text-tertiary">60s</span>{" "}
-                <span className="font-label-sm text-label-sm text-on-surface-variant">Instant Audit</span>
+                <span className="font-title-lg text-title-lg text-tertiary">
+                  60s
+                </span>{" "}
+                <span className="font-label-sm text-label-sm text-on-surface-variant">
+                  Instant Audit
+                </span>
               </div>
             </div>
           </section>
@@ -113,9 +155,13 @@ export default function ProductMobile() {
                 <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">
                   How Penny Works
                 </span>{" "}
-                <h2 className="font-headline-sm text-headline-sm text-on-surface">Effortless Autonomous Setup</h2>
+                <h2 className="font-headline-sm text-headline-sm text-on-surface">
+                  Effortless Autonomous Setup
+                </h2>
               </div>{" "}
-              <span className="material-symbols-outlined text-secondary text-[24px]">stream</span>
+              <span className="material-symbols-outlined text-secondary text-[24px]">
+                stream
+              </span>
             </div>
             <div className="grid grid-cols-1 gap-space-sm">
               {/* Step 1 */}
@@ -133,8 +179,8 @@ export default function ProductMobile() {
                     </span>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                    Bank-grade 256-bit encryption. Link cards or simply drop an export CSV without ever sharing
-                    credentials.
+                    Bank-grade 256-bit encryption. Link cards or simply drop an
+                    export CSV without ever sharing credentials.
                   </p>
                 </div>
               </div>
@@ -153,8 +199,8 @@ export default function ProductMobile() {
                     </span>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                    Penny traverses 12 months of transactions to discover buried subs, hidden creeping fees, and
-                    duplicate charges.
+                    Penny traverses 12 months of transactions to discover buried
+                    subs, hidden creeping fees, and duplicate charges.
                   </p>
                 </div>
               </div>
@@ -173,8 +219,8 @@ export default function ProductMobile() {
                     </span>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                    Tap once to cancel zombies, trigger high-yield auto stashes, or re-balance your disposable spending
-                    budget.
+                    Tap once to cancel zombies, trigger high-yield auto stashes,
+                    or re-balance your disposable spending budget.
                   </p>
                 </div>
               </div>
@@ -186,39 +232,53 @@ export default function ProductMobile() {
               <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">
                 Engine Deep Dive
               </span>{" "}
-              <h2 className="font-headline-sm text-headline-sm text-on-surface">Designed to Outthink Your Expenses</h2>
+              <h2 className="font-headline-sm text-headline-sm text-on-surface">
+                Designed to Outthink Your Expenses
+              </h2>
             </div>
             {/* Module 1: Autonomous Categorization */}
             <div className="bg-surface-container rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
               <div className="p-space-lg flex flex-col">
                 <div className="flex items-center justify-between mb-3">
                   <div className="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined text-[24px]">category</span>
+                    <span className="material-symbols-outlined text-[24px]">
+                      category
+                    </span>
                   </div>{" "}
                   <span className="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-primary-container/20 text-primary font-semibold">
                     99.4% Accuracy
                   </span>
                 </div>
-                <h3 className="font-title-lg text-title-lg text-on-surface">Autonomous Categorization</h3>
+                <h3 className="font-title-lg text-title-lg text-on-surface">
+                  Autonomous Categorization
+                </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-4">
-                  Never tag coffee again. Machine learning maps erratic merchant IDs into clean taxonomies, memorizing
-                  your bespoke rules.
+                  Never tag coffee again. Machine learning maps erratic merchant
+                  IDs into clean taxonomies, memorizing your bespoke rules.
                 </p>
                 {/* Micro UI Visualization */}
                 <div className="bg-surface-container-lowest rounded-lg p-space-sm space-y-2">
                   <div className="flex items-center justify-between text-body-sm">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-primary" />{" "}
-                      <span className="text-on-surface font-medium truncate max-w-[150px]">SQ* BIRD ROCK ROAST</span>
+                      <span className="text-on-surface font-medium truncate max-w-[150px]">
+                        SQ* BIRD ROCK ROAST
+                      </span>
                     </div>{" "}
-                    <span className="text-on-surface-variant font-label-sm">Classified: Dining</span>
+                    <span className="text-on-surface-variant font-label-sm">
+                      Classified: Dining
+                    </span>
                   </div>
                   <div className="flex items-center justify-between text-body-sm">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-secondary" />{" "}
-                      <span className="text-on-surface font-medium truncate max-w-[150px]">AMZN MKTP US*8X2</span>
+                      <span className="text-on-surface font-medium truncate max-w-[150px]">
+                        AMZN MKTP US*8X2
+                      </span>
                     </div>{" "}
-                    <span className="text-on-surface-variant font-label-sm">Classified: Office Supplies</span>
+                    <span className="text-on-surface-variant font-label-sm">
+                      Classified: Office Supplies
+                    </span>
                   </div>
                 </div>
               </div>
@@ -227,15 +287,23 @@ export default function ProductMobile() {
             <div className="bg-surface-container rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
               <div className="flex items-center justify-between mb-3">
                 <div className="w-10 h-10 rounded-lg bg-secondary-container/40 flex items-center justify-center text-secondary">
-                  <span className="material-symbols-outlined text-[24px]">forum</span>
+                  <span className="material-symbols-outlined text-[24px]">
+                    forum
+                  </span>
                 </div>
                 <div className="flex items-center gap-1 font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-secondary-container/25 text-secondary">
-                  <span className="material-symbols-outlined text-[14px]">bolt</span> <span>Ultra-Low Latency</span>
+                  <span className="material-symbols-outlined text-[14px]">
+                    bolt
+                  </span>{" "}
+                  <span>Ultra-Low Latency</span>
                 </div>
               </div>
-              <h3 className="font-title-lg text-title-lg text-on-surface">Conversational Copilot</h3>
+              <h3 className="font-title-lg text-title-lg text-on-surface">
+                Conversational Copilot
+              </h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-4">
-                Query your personal vault like an experienced financial manager in plain English.
+                Query your personal vault like an experienced financial manager
+                in plain English.
               </p>
               {/* Conversational Chat Demo Component */}
               <div className="bg-surface-container-lowest rounded-xl p-3 space-y-3 shadow-inner">
@@ -248,12 +316,15 @@ export default function ProductMobile() {
                 {/* Penny response bubble */}
                 <div className="flex gap-2 items-start">
                   <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="material-symbols-outlined text-on-primary text-[14px]">auto_awesome</span>
+                    <span className="material-symbols-outlined text-on-primary text-[14px]">
+                      auto_awesome
+                    </span>
                   </div>
                   <div className="bg-surface-container-low text-on-surface font-body-sm text-body-sm py-2.5 px-3.5 rounded-2xl rounded-tl-none max-w-[88%] shadow-[0_0_16px_-4px_rgba(99,102,241,0.2)]">
                     <p className="text-on-surface">
-                      You took 4 weekend road trips (+$242 in dinners) compared to zero in August. Offsetting via
-                      grocery savings keeps you on target!
+                      You took 4 weekend road trips (+$242 in dinners) compared
+                      to zero in August. Offsetting via grocery savings keeps
+                      you on target!
                     </p>
                     <div className="flex items-center gap-2 mt-2">
                       <button className="font-label-sm text-label-sm px-2 py-1 rounded bg-primary text-on-primary font-medium active:opacity-80">
@@ -271,51 +342,73 @@ export default function ProductMobile() {
             <div className="bg-surface-container rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
               <div className="flex items-center justify-between mb-3">
                 <div className="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
-                  <span className="material-symbols-outlined text-[24px]">radar</span>
+                  <span className="material-symbols-outlined text-[24px]">
+                    radar
+                  </span>
                 </div>{" "}
                 <span className="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-tertiary-container/30 text-tertiary font-semibold">
                   Pre-Billing Alerts
                 </span>
               </div>
-              <h3 className="font-title-lg text-title-lg text-on-surface">Proactive Spend Radar</h3>
+              <h3 className="font-title-lg text-title-lg text-on-surface">
+                Proactive Spend Radar
+              </h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-4">
-                Penny identifies creeping price hikes, unannounced renewals, and phantom service fees before credit
-                statements lock.
+                Penny identifies creeping price hikes, unannounced renewals, and
+                phantom service fees before credit statements lock.
               </p>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low">
-                <span className="material-symbols-outlined text-tertiary text-[24px]">warning</span>{" "}
+                <span className="material-symbols-outlined text-tertiary text-[24px]">
+                  warning
+                </span>{" "}
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="font-title-md text-title-md text-on-surface">Price Creep Flag</span>{" "}
+                  <span className="font-title-md text-title-md text-on-surface">
+                    Price Creep Flag
+                  </span>{" "}
                   <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
                     Figma bill rose from $12 to $15/seat (+25%)
                   </span>
                 </div>{" "}
-                <span className="font-label-sm text-label-sm text-tertiary font-bold">Review</span>
+                <span className="font-label-sm text-label-sm text-tertiary font-bold">
+                  Review
+                </span>
               </div>
             </div>
             {/* Module 4: Smart Piggybanks */}
             <div className="bg-surface-container rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
               <div className="flex items-center justify-between mb-3">
                 <div className="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined text-[24px]">savings</span>
+                  <span className="material-symbols-outlined text-[24px]">
+                    savings
+                  </span>
                 </div>{" "}
                 <span className="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-primary-container/20 text-primary font-semibold">
                   4.85% APY Stashes
                 </span>
               </div>
-              <h3 className="font-title-lg text-title-lg text-on-surface">Autonomous Smart Piggybanks</h3>
+              <h3 className="font-title-lg text-title-lg text-on-surface">
+                Autonomous Smart Piggybanks
+              </h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-4">
-                Algorithmic micro-saving. We predict your cash balance peaks and siphon safe slivers into high-interest
-                accounts without risk of overdraft.
+                Algorithmic micro-saving. We predict your cash balance peaks and
+                siphon safe slivers into high-interest accounts without risk of
+                overdraft.
               </p>
               {/* Mini Target Bar */}
               <div className="bg-surface-container-lowest rounded-lg p-3 space-y-2">
                 <div className="flex justify-between font-label-sm text-label-sm">
-                  <span className="text-on-surface">Japan Spring 2026 Fund</span>{" "}
-                  <span className="text-primary font-semibold">$3,420 / $5,000</span>
+                  <span className="text-on-surface">
+                    Japan Spring 2026 Fund
+                  </span>{" "}
+                  <span className="text-primary font-semibold">
+                    $3,420 / $5,000
+                  </span>
                 </div>
                 <div className="w-full h-2.5 bg-surface-container-high rounded-full overflow-hidden">
-                  <div className="h-full bg-primary rounded-full" style={{ width: "68%" }} />
+                  <div
+                    className="h-full bg-primary rounded-full"
+                    style={{ width: "68%" }}
+                  />
                 </div>{" "}
                 <span className="font-body-sm text-body-sm text-on-surface-variant block mt-1">
                   Penny transferred $14.20 yesterday from spare cash.
@@ -330,17 +423,25 @@ export default function ProductMobile() {
                 <span className="font-label-sm text-label-sm text-error uppercase tracking-wider">
                   Live Ghost-Leak Hunter
                 </span>{" "}
-                <h2 className="font-headline-sm text-headline-sm text-on-surface">Cancel Unwanted Recurring Bills</h2>
+                <h2 className="font-headline-sm text-headline-sm text-on-surface">
+                  Cancel Unwanted Recurring Bills
+                </h2>
               </div>
               <div className="w-7 h-7 rounded-full bg-error-container/30 flex items-center justify-center text-error">
-                <span className="material-symbols-outlined text-[18px]">emergency</span>
+                <span className="material-symbols-outlined text-[18px]">
+                  emergency
+                </span>
               </div>
             </div>
             {/* Active Leaks Card */}
             <div className="bg-surface-container rounded-2xl p-space-md shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
               <div className="flex justify-between items-center pb-3">
-                <span className="font-label-sm text-label-sm text-on-surface-variant">3 Active Leaks Detected</span>{" "}
-                <span className="font-title-md text-title-md text-error font-semibold">-$68.97 / mo</span>
+                <span className="font-label-sm text-label-sm text-on-surface-variant">
+                  3 Active Leaks Detected
+                </span>{" "}
+                <span className="font-title-md text-title-md text-error font-semibold">
+                  -$68.97 / mo
+                </span>
               </div>
               <div className="space-y-space-sm" id="subscriptionList">
                 {/* Item 1 */}
@@ -354,7 +455,9 @@ export default function ProductMobile() {
                 >
                   {canceled["sub-item-1"] ? (
                     <div className="flex items-center gap-2 py-1 text-primary">
-                      <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                      <span className="material-symbols-outlined text-[20px]">
+                        check_circle
+                      </span>
                       <span className="font-title-md text-title-md">
                         Canceled! (Saved ${canceled["sub-item-1"]}/mo)
                       </span>
@@ -363,11 +466,17 @@ export default function ProductMobile() {
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
-                          <span className="material-symbols-outlined text-[20px]">cloud</span>
+                          <span className="material-symbols-outlined text-[20px]">
+                            cloud
+                          </span>
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="font-title-md text-title-md text-on-surface">AWS Test Server</span>{" "}
-                          <span className="font-body-sm text-body-sm text-on-surface-variant">Idle for 42 days</span>
+                          <span className="font-title-md text-title-md text-on-surface">
+                            AWS Test Server
+                          </span>{" "}
+                          <span className="font-body-sm text-body-sm text-on-surface-variant">
+                            Idle for 42 days
+                          </span>
                         </div>
                       </div>{" "}
                       <button
@@ -390,7 +499,9 @@ export default function ProductMobile() {
                 >
                   {canceled["sub-item-2"] ? (
                     <div className="flex items-center gap-2 py-1 text-primary">
-                      <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                      <span className="material-symbols-outlined text-[20px]">
+                        check_circle
+                      </span>
                       <span className="font-title-md text-title-md">
                         Canceled! (Saved ${canceled["sub-item-2"]}/mo)
                       </span>
@@ -399,11 +510,17 @@ export default function ProductMobile() {
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
-                          <span className="material-symbols-outlined text-[20px]">fitness_center</span>
+                          <span className="material-symbols-outlined text-[20px]">
+                            fitness_center
+                          </span>
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="font-title-md text-title-md text-on-surface">Metropolis Gym</span>{" "}
-                          <span className="font-body-sm text-body-sm text-on-surface-variant">Zero visits in 60d</span>
+                          <span className="font-title-md text-title-md text-on-surface">
+                            Metropolis Gym
+                          </span>{" "}
+                          <span className="font-body-sm text-body-sm text-on-surface-variant">
+                            Zero visits in 60d
+                          </span>
                         </div>
                       </div>{" "}
                       <button
@@ -426,7 +543,9 @@ export default function ProductMobile() {
                 >
                   {canceled["sub-item-3"] ? (
                     <div className="flex items-center gap-2 py-1 text-primary">
-                      <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                      <span className="material-symbols-outlined text-[20px]">
+                        check_circle
+                      </span>
                       <span className="font-title-md text-title-md">
                         Canceled! (Saved ${canceled["sub-item-3"]}/mo)
                       </span>
@@ -435,10 +554,14 @@ export default function ProductMobile() {
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
-                          <span className="material-symbols-outlined text-[20px]">tv</span>
+                          <span className="material-symbols-outlined text-[20px]">
+                            tv
+                          </span>
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="font-title-md text-title-md text-on-surface">StreamPass HD</span>{" "}
+                          <span className="font-title-md text-title-md text-on-surface">
+                            StreamPass HD
+                          </span>{" "}
                           <span className="font-body-sm text-body-sm text-on-surface-variant">
                             Expired trial renewed
                           </span>
@@ -472,7 +595,10 @@ export default function ProductMobile() {
           {/* Bottom High-Converting Action Card */}
           <section className="w-full bg-gradient-to-b from-surface-container-high to-surface-container rounded-2xl p-6 text-center shadow-[0_16px_36px_rgba(0,0,0,0.5)]">
             <div className="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto mb-3">
-              <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+              <span
+                className="material-symbols-outlined text-[28px]"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
                 workspace_premium
               </span>
             </div>
@@ -480,18 +606,24 @@ export default function ProductMobile() {
               Ready to Put Your Money on Autopilot?
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-              Try Penny free for 14 days. If it doesn't uncover at least $100 in optimizations, keep the reports on us.
+              Try Penny free for 14 days. If it doesn't uncover at least $100 in
+              optimizations, keep the reports on us.
             </p>{" "}
             <button className="w-full py-4 px-6 rounded-xl bg-primary text-on-primary font-title-lg text-title-lg font-bold shadow-lg active:scale-[0.98] transition-transform">
               Claim 14-Day Free Access
             </button>{" "}
             <div className="flex items-center justify-center gap-4 mt-4 text-on-surface-variant font-label-sm text-label-sm">
               <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px] text-primary">check_circle</span> No credit card
-                upfront
+                <span className="material-symbols-outlined text-[16px] text-primary">
+                  check_circle
+                </span>{" "}
+                No credit card upfront
               </span>{" "}
               <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px] text-primary">verified_user</span> SOC2 Compliant
+                <span className="material-symbols-outlined text-[16px] text-primary">
+                  verified_user
+                </span>{" "}
+                SOC2 Compliant
               </span>
             </div>
           </section>
@@ -507,7 +639,9 @@ export default function ProductMobile() {
             data-path="penny-ai-home"
             href="/"
           >
-            <span className="material-symbols-outlined text-[22px]">dashboard</span>
+            <span className="material-symbols-outlined text-[22px]">
+              dashboard
+            </span>
             <span className="font-label-sm text-label-sm mt-1">Home</span>
           </Link>
           <Link
@@ -515,7 +649,9 @@ export default function ProductMobile() {
             data-path="product"
             href="/product"
           >
-            <span className="material-symbols-outlined text-[22px]">view_quilt</span>
+            <span className="material-symbols-outlined text-[22px]">
+              view_quilt
+            </span>
             <span className="font-label-sm text-label-sm mt-1">Product</span>
           </Link>
           <Link
@@ -523,7 +659,9 @@ export default function ProductMobile() {
             data-path="features-ai-technology"
             href="/features"
           >
-            <span className="material-symbols-outlined text-[22px]">psychology</span>
+            <span className="material-symbols-outlined text-[22px]">
+              psychology
+            </span>
             <span className="font-label-sm text-label-sm mt-1">Features</span>
           </Link>
           <Link
@@ -531,7 +669,9 @@ export default function ProductMobile() {
             data-path="pricing-plans"
             href="/pricing"
           >
-            <span className="material-symbols-outlined text-[22px]">payments</span>
+            <span className="material-symbols-outlined text-[22px]">
+              payments
+            </span>
             <span className="font-label-sm text-label-sm mt-1">Pricing</span>
           </Link>
           <Link
@@ -539,7 +679,9 @@ export default function ProductMobile() {
             data-path="security-trust"
             href="/security-and-trust"
           >
-            <span className="material-symbols-outlined text-[22px]">shield</span>
+            <span className="material-symbols-outlined text-[22px]">
+              shield
+            </span>
             <span className="font-label-sm text-label-sm mt-1">Security</span>
           </Link>
         </div>
